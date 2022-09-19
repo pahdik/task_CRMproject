@@ -18,8 +18,6 @@ namespace contacts.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> GetContact(int id)
         {
-            var cont=await _context.Contacts.FirstAsync(x => x.Id == 2);
-            Console.WriteLine(cont.BirthDate.ToString("dd/MM/yyyy"));
             return await _context.Contacts.FirstAsync(x => x.Id == id);
         }
         [HttpGet]
@@ -39,6 +37,7 @@ namespace contacts.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Contact>>> Delete(int id)
         {
+            Console.WriteLine(1234567789);
             var contact=await _context.Contacts.FirstAsync(x=>x.Id==id);
             _context.Contacts.Remove(contact);
             await _context.SaveChangesAsync();
@@ -50,6 +49,7 @@ namespace contacts.Controllers
             var contact= await _context.Contacts.FirstAsync(x=>x.Id==updateContact.Id);
             contact.MobilePhone = updateContact.MobilePhone;
             contact.BirthDate = updateContact.BirthDate;
+            contact.JobTitle = updateContact.JobTitle;
             contact.Name = updateContact.Name;
             await _context.SaveChangesAsync();
             return await Get();
